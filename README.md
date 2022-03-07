@@ -96,7 +96,7 @@ The usleep() function suspends execution of the calling thread
 On success, pthread_join() returns 0; on error, it returns an
        error number.
 
-## [pthread_mutex_destroy and pthread_mutex_init](https://man7.org/linux/man-pages/man3/pthread_mutex_init.3p.html)  pthread_mutex_destroy, pthread_mutex_init — destroy and initialize a mutex
+## [pthread_mutex_destroy and pthread_mutex_init](https://man7.org/linux/man-pages/man3/pthread_mutex_init.3p.html) — destroy and initialize a mutex
  The pthread_mutex_destroy() function shall destroy the mutex
        object referenced by mutex; the mutex object becomes, in effect,
        uninitialized. An implementation may cause
