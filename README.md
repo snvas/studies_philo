@@ -47,20 +47,106 @@ The usleep() function suspends execution of the calling thread
  gettimeofday() and settimeofday() return 0 for success.  On
        error, -1 is returned and errno is set to indicate the error.
 
-## pthread_create
+## [pthread_create](https://man7.org/linux/man-pages/man3/pthread_create.3.html) - create a new thread
+ The pthread_create() function starts a new thread in the calling
+       process.  The new thread starts execution by invoking
+       start_routine(); arg is passed as the sole argument of
+       start_routine().
 
-## pthread_detach
+       The new thread terminates in one of the following ways:
 
-## pthread_join
+       * It calls pthread_exit(3), specifying an exit status value that
+         is available to another thread in the same process that calls
+         pthread_join(3).
 
-## pthread_mutex_init
+       * It returns from start_routine().  This is equivalent to calling
+         pthread_exit(3) with the value supplied in the return
+         statement.
 
-## pthread_mutex_destroy
+       * It is canceled (see pthread_cancel(3)).
 
-## pthread_mutex_lock
+       * Any of the threads in the process calls exit(3), or the main
+         thread performs a return from main().  This causes the
+         termination of all threads in the process.
 
-## pthread_mutex_unlock
+#### Return value
+ On success, pthread_create() returns 0; on error, it returns an
+       error number, and the contents of *thread are undefined.
 
+## [pthread_detach](https://man7.org/linux/man-pages/man3/pthread_detach.3.html)  - detach a thread
+ The pthread_detach() function marks the thread identified by
+       thread as detached.  When a detached thread terminates, its
+       resources are automatically released back to the system without
+       the need for another thread to join with the terminated thread.
+
+       Attempting to detach an already detached thread results in
+       unspecified behavior.
+
+#### Return value
+  On success, pthread_detach() returns 0; on error, it returns an
+       error number.
+
+## [pthread_join](https://man7.org/linux/man-pages/man3/pthread_join.3.html) - join with a terminated thread
+ The pthread_join() function waits for the thread specified by
+       thread to terminate.  If that thread has already terminated, then
+       pthread_join() returns immediately.  The thread specified by
+       thread must be joinable.
+
+#### Return value
+On success, pthread_join() returns 0; on error, it returns an
+       error number.
+
+## [pthread_mutex_destroy and pthread_mutex_init](https://man7.org/linux/man-pages/man3/pthread_mutex_init.3p.html)  pthread_mutex_destroy, pthread_mutex_init — destroy and initialize a mutex
+ The pthread_mutex_destroy() function shall destroy the mutex
+       object referenced by mutex; the mutex object becomes, in effect,
+       uninitialized. An implementation may cause
+       pthread_mutex_destroy() to set the object referenced by mutex to
+       an invalid value.
+
+       A destroyed mutex object can be reinitialized using
+       pthread_mutex_init(); the results of otherwise referencing the
+       object after it has been destroyed are undefined.
+
+       It shall be safe to destroy an initialized mutex that is
+       unlocked.  Attempting to destroy a locked mutex, or a mutex that
+       another thread is attempting to lock, or a mutex that is being
+       used in a pthread_cond_timedwait() or pthread_cond_wait() call by
+       another thread, results in undefined behavior.
+
+       The pthread_mutex_init() function shall initialize the mutex
+       referenced by mutex with attributes specified by attr.  If attr
+       is NULL, the default mutex attributes are used; the effect shall
+       be the same as passing the address of a default mutex attributes
+       object. Upon successful initialization, the state of the mutex
+       becomes initialized and unlocked.
+```
+#include <pthread.h>
+
+       int pthread_mutex_init(pthread_mutex_t *restrict mutex,
+           const pthread_mutexattr_t *restrict attr);
+       pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+```
+
+## [pthread_mutex_lock, pthread_mutex_trylock, pthread_mutex_unlock](https://man7.org/linux/man-pages/man3/pthread_mutex_lock.3p.html) — lock and unlock a mutex
+```
+#include <pthread.h>
+
+       int pthread_mutex_lock(pthread_mutex_t *mutex);
+       int pthread_mutex_trylock(pthread_mutex_t *mutex);
+       int pthread_mutex_unlock(pthread_mutex_t *mutex);
+```
+The mutex object referenced by mutex shall be locked by a call to
+       pthread_mutex_lock() that returns zero or [EOWNERDEAD].  If the
+       mutex is already locked by another thread, the calling thread
+       shall block until the mutex becomes available. This operation
+       shall return with the mutex object referenced by mutex in the
+       locked state with the calling thread as its owner. If a thread
+       attempts to relock a mutex that it has already locked,
+       pthread_mutex_lock() shall behave as described in the Relock
+       column of the following table. If a thread attempts to unlock a
+       mutex that it has not locked or a mutex which is unlocked,
+       pthread_mutex_unlock() shall behave as described in the Unlock
+       When Not Owner column of the following table.
 
 ## [printf](https://man7.org/linux/man-pages/man3/printf.3.html) - formatted output conversion
 The functions in the printf() family produce output according to a format as described below.
