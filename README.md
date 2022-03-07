@@ -74,17 +74,16 @@ The usleep() function suspends execution of the calling thread
        error number, and the contents of *thread are undefined.
 
 ## [pthread_detach](https://man7.org/linux/man-pages/man3/pthread_detach.3.html)  - detach a thread
- The pthread_detach() function marks the thread identified by
+The pthread_detach() function marks the thread identified by
        thread as detached.  When a detached thread terminates, its
        resources are automatically released back to the system without
        the need for another thread to join with the terminated thread.
 
-       Attempting to detach an already detached thread results in
+Attempting to detach an already detached thread results in
        unspecified behavior.
 
 #### Return value
-  On success, pthread_detach() returns 0; on error, it returns an
-       error number.
+On success, pthread_detach() returns 0; on error, it returns an error number.
 
 ## [pthread_join](https://man7.org/linux/man-pages/man3/pthread_join.3.html) - join with a terminated thread
  The pthread_join() function waits for the thread specified by
@@ -103,17 +102,17 @@ On success, pthread_join() returns 0; on error, it returns an
        pthread_mutex_destroy() to set the object referenced by mutex to
        an invalid value.
 
-       A destroyed mutex object can be reinitialized using
+A destroyed mutex object can be reinitialized using
        pthread_mutex_init(); the results of otherwise referencing the
        object after it has been destroyed are undefined.
 
-       It shall be safe to destroy an initialized mutex that is
+It shall be safe to destroy an initialized mutex that is
        unlocked.  Attempting to destroy a locked mutex, or a mutex that
        another thread is attempting to lock, or a mutex that is being
        used in a pthread_cond_timedwait() or pthread_cond_wait() call by
        another thread, results in undefined behavior.
 
-       The pthread_mutex_init() function shall initialize the mutex
+The pthread_mutex_init() function shall initialize the mutex
        referenced by mutex with attributes specified by attr.  If attr
        is NULL, the default mutex attributes are used; the effect shall
        be the same as passing the address of a default mutex attributes
@@ -136,17 +135,17 @@ On success, pthread_join() returns 0; on error, it returns an
        int pthread_mutex_unlock(pthread_mutex_t *mutex);
 ```
 The mutex object referenced by mutex shall be locked by a call to
-       pthread_mutex_lock() that returns zero or [EOWNERDEAD].  If the
-       mutex is already locked by another thread, the calling thread
-       shall block until the mutex becomes available. This operation
-       shall return with the mutex object referenced by mutex in the
-       locked state with the calling thread as its owner. If a thread
-       attempts to relock a mutex that it has already locked,
-       pthread_mutex_lock() shall behave as described in the Relock
-       column of the following table. If a thread attempts to unlock a
-       mutex that it has not locked or a mutex which is unlocked,
-       pthread_mutex_unlock() shall behave as described in the Unlock
-       When Not Owner column of the following table.
+ pthread_mutex_lock() that returns zero or [EOWNERDEAD].  If the
+ mutex is already locked by another thread, the calling thread
+ shall block until the mutex becomes available. This operation
+ shall return with the mutex object referenced by mutex in the
+ locked state with the calling thread as its owner. 
+If a thread attempts to relock a mutex that it has already locked,
+ pthread_mutex_lock() shall behave as described in the Relock
+ column of the following table. If a thread attempts to unlock a
+ mutex that it has not locked or a mutex which is unlocked,
+ pthread_mutex_unlock() shall behave as described in the Unlock
+ When Not Owner column of the following table.
 
 ## [printf](https://man7.org/linux/man-pages/man3/printf.3.html) - formatted output conversion
 The functions in the printf() family produce output according to a format as described below.
