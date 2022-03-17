@@ -59,14 +59,14 @@ The usleep() function suspends execution of the calling thread
          is available to another thread in the same process that calls
          pthread_join(3).
 
-       * It returns from start_routine().  This is equivalent to calling
+       * It returns from start_routine(). This is equivalent to calling
          pthread_exit(3) with the value supplied in the return
          statement.
 
        * It is canceled (see pthread_cancel(3)).
 
        * Any of the threads in the process calls exit(3), or the main
-         thread performs a return from main().  This causes the
+         thread performs a return from main(). This causes the
          termination of all threads in the process.
 
 #### Return value
@@ -88,7 +88,7 @@ On success, pthread_detach() returns 0; on error, it returns an error number.
 ## [pthread_join](https://man7.org/linux/man-pages/man3/pthread_join.3.html) - join with a terminated thread
  The pthread_join() function waits for the thread specified by
        thread to terminate.  If that thread has already terminated, then
-       pthread_join() returns immediately.  The thread specified by
+       pthread_join() returns immediately. The thread specified by
        thread must be joinable.
 
 #### Return value
@@ -107,13 +107,13 @@ A destroyed mutex object can be reinitialized using
        object after it has been destroyed are undefined.
 
 It shall be safe to destroy an initialized mutex that is
-       unlocked.  Attempting to destroy a locked mutex, or a mutex that
+       unlocked. Attempting to destroy a locked mutex, or a mutex that
        another thread is attempting to lock, or a mutex that is being
        used in a pthread_cond_timedwait() or pthread_cond_wait() call by
        another thread, results in undefined behavior.
 
 The pthread_mutex_init() function shall initialize the mutex
-       referenced by mutex with attributes specified by attr.  If attr
+       referenced by mutex with attributes specified by attr. If attr
        is NULL, the default mutex attributes are used; the effect shall
        be the same as passing the address of a default mutex attributes
        object. Upon successful initialization, the state of the mutex
