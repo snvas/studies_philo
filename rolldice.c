@@ -6,7 +6,7 @@
 /*   By: snovaes <snovaes@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 18:51:35 by snovaes           #+#    #+#             */
-/*   Updated: 2022/03/16 22:11:02 by snovaes          ###   ########.fr       */
+/*   Updated: 2022/03/17 13:13:04 by snovaes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void * roll_dice() {
 //	printf("%d\n", value);
 	return (result);
 }
-
 
 int main(int argc, char *argv[])
 {
