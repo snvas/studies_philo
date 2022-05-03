@@ -1,5 +1,5 @@
 # Philo Studies
-## [Project](https://github.com/snvas/42course_philosophers)
+## [Philosofer 42 Project Repository](https://github.com/snvas/42course_philosophers)
 
 ## [memset](https://man7.org/linux/man-pages/man3/memset.3.html) - fill memory with a constant byte
 The C library function void *memset(void *str, int c, size_t n) copies the character c (an unsigned char) to the first n characters of the string pointed to, by the argument str.
